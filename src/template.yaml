@@ -1,0 +1,24 @@
+MyFunctionDemo:
+  Component: fc
+  Provider: alibaba
+  Extends:
+    deploy:
+      - Hook: chmod 755 bootstrap nginx
+        Path: ./
+        Pre: true
+  Properties:
+    Region: cn-hangzhou
+    Service:
+      Name: custom-runtime-demo
+    Function:
+      Name: custom-lua
+      CodeUri:
+        Src: ./
+        Excludes:
+          - .s
+          - README.md
+          - template.yaml
+      CAPort: 9000
+      Handler: index.handler
+      MemorySize: 512
+      Runtime: custom
